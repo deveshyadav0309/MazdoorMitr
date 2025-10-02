@@ -1,58 +1,1154 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MazdoorMitra</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MazdoorMitra - Enhanced Labour Job Portal</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #0f172a;
+      --secondary: #3b82f6;
+      --accent: #10b981;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      --radius: 12px;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* Enhanced Navigation */
+    .navbar {
+      background: var(--card);
+      padding: 1rem 2rem;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--secondary), var(--accent));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius);
+      transition: all 0.3s ease;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      background: var(--secondary);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .mobile-menu span {
+      width: 25px;
+      height: 3px;
+      background: var(--text);
+      margin: 3px 0;
+      transition: 0.3s;
+    }
+
+    /* Enhanced Hero Section */
+    .hero {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 6rem 2rem;
+      text-align: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="rgba(255,255,255,0.1)"><polygon points="0,100 1000,0 1000,100"/></svg>') no-repeat bottom;
+      background-size: cover;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      animation: fadeInUp 1s ease;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+      animation: fadeInUp 1s ease 0.2s both;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeInUp 1s ease 0.4s both;
+    }
+
+    .btn {
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: var(--radius);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: white;
+      border: 2px solid white;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Enhanced Search Section */
+    .search-section {
+      background: var(--card);
+      padding: 3rem 2rem;
+      margin-top: -3rem;
+      position: relative;
+      z-index: 2;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .search-container {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .search-input {
+      flex: 1;
+      padding: 1rem;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 1rem;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--secondary);
+    }
+
+    .search-btn {
+      background: var(--secondary);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    /* Category Pills */
+    .categories {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .category-pill {
+      background: var(--bg);
+      padding: 0.8rem 1.5rem;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .category-pill:hover {
+      background: var(--secondary);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    /* Stats Section */
+    .stats-section {
+      background: var(--primary);
+      color: white;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .stat-item {
+      padding: 1rem;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    /* Features Section */
+    .features-section {
+      padding: 4rem 2rem;
+      background: var(--card);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      background: var(--bg);
+      padding: 2rem;
+      border-radius: var(--radius);
+      text-align: center;
+      transition: all 0.3s ease;
+      border: 1px solid var(--border);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--secondary), var(--accent));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      color: white;
+      font-size: 1.5rem;
+    }
+
+    /* Quick Actions */
+    .quick-actions {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 1000;
+    }
+
+    .fab {
+      background: var(--accent);
+      color: white;
+      border: none;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+      display: block;
+    }
+
+    .fab:hover {
+      transform: scale(1.1);
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 2000;
+      backdrop-filter: blur(5px);
+    }
+
+    .modal-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--card);
+      padding: 2rem;
+      border-radius: var(--radius);
+      width: 90%;
+      max-width: 500px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 1rem;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--secondary);
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--card);
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: var(--shadow);
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .mobile-menu {
+        display: flex;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .search-container {
+        flex-direction: column;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Success Messages */
+    .success-message {
+      background: var(--accent);
+      color: white;
+      padding: 1rem;
+      border-radius: var(--radius);
+      margin: 1rem 0;
+      display: none;
+    }
+
+    .success-message.show {
+      display: block;
+      animation: fadeInUp 0.5s ease;
+    }
+
+    /* Loading Spinner */
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255,255,255,.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
 </head>
-
 <body>
-    <div class="information">
+  <!-- Enhanced Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <div class="logo-icon">🔧</div>
+        <span>MazdoorMitra</span>
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="workers.html">Workers</a></li>
+        <li><a href="jobs.html">Jobs</a></li>
+        <li><a href="Joblisting.html">Job Listing</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+      <div class="mobile-menu" id="mobileMenu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
 
-        <header class="nav">
-            <div class="nav__brand">
-                <img src="C:\Users\Lenovo\OneDrive\Desktop\MazdoorMitra\img\—Pngtree—construction worker engineer_14561951 (1).png" width="60" height="60">
-                <span class="brand-text">MazdoorMitr</span>
-            </div>
-            <nav class="nav__links">
-                <a href="index.html">Home</a>
-                <a href="worker.html">Worker Profile</a>
-                <a href="jobs.html">Job Listings</a>
-                <a href="postjob.html">Post a Job</a>
-                <a href="login.html">Login / Register</a>
-                <a href="about.html">About</a>
-            </nav>
-        </header>
+  <!-- Enhanced Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <h1>Find Skilled Workers Near You</h1>
+      <p>Connect with verified painters, carpenters, electricians, plumbers, and construction workers - all in one place</p>
+      
+    </div>
+  </section>
 
-        <section class="hero">
-            <div class="hero-text">
-                <h1>Find Skilled Labour Near You</h1>
-                <p>Painters, carpenters, electricians, plumbers, and construction workers—all in one place.</p>
-                <div class="buttons">
-                    <button class="hire-btn">Hire Worker</button>
-                    <button class="post-btn"><a href="postjob.html">Post Your Skills</a></button>
-                </div>
-            </div>
+  <!-- Enhanced Search Section -->
+  <section class="search-section">
+    <div class="search-container">
+      <input type="text" class="search-input" id="searchInput" placeholder="Search for workers, skills, or locations...">
+      <select class="search-input" id="categoryFilter">
+        <option value="">All Categories</option>
+        <option value="painter">Painter</option>
+        <option value="carpenter">Carpenter</option>
+        <option value="electrician">Electrician</option>
+        <option value="plumber">Plumber</option>
+        <option value="construction">Construction</option>
+        <option value="house-help">House Help</option>
+      </select>
+      <button class="search-btn" onclick="performSearch()">
+        <span id="searchText">Search</span>
+        <div class="loading" id="searchLoading" style="display: none;"></div>
+      </button>
+    </div>
+    
+    <div class="categories">
+      <div class="category-pill" onclick="filterByCategory('painter')">🎨 Painter</div>
+      <div class="category-pill" onclick="filterByCategory('carpenter')">🔨 Carpenter</div>
+      <div class="category-pill" onclick="filterByCategory('electrician')">⚡ Electrician</div>
+      <div class="category-pill" onclick="filterByCategory('plumber')">🔧 Plumber</div>
+      <div class="category-pill" onclick="filterByCategory('construction')">🏗️ Construction</div>
+      <div class="category-pill" onclick="filterByCategory('house-help')">🏠 House Help</div>
+    </div>
+  </section>
 
-            <div class="search-box">
-                <input type="text" placeholder="Search workers or jobs (e.g., Painter in Kanpur)">
-                <button>Search</button>
-            </div>
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <span class="stat-number" data-target="1500">0</span>
+        <span class="stat-label">Active Workers</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" data-target="850">0</span>
+        <span class="stat-label">Jobs Completed</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" data-target="95">0</span>
+        <span class="stat-label">Success Rate %</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" data-target="24">0</span>
+        <span class="stat-label">Cities Covered</span>
+      </div>
+    </div>
+  </section>
 
-            <div class="categories">
-                <div class="cat">Painter</div>
-                <div class="cat">Carpenter</div>
-                <div class="cat">Electrician</div>
-                <div class="cat">Plumber</div>
-                <div class="cat">Construction</div>
-                <div class="cat">House Help</div>
-            </div>
-        </section>
-        <footer>
-            <p>&copy; 2025 MazdoorMitra | All Rights Reserved</p>
-        </footer>
+  <!-- Features Section -->
+  <section class="features-section">
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">✓</div>
+        <h3>Verified Workers</h3>
+        <p>All workers are background checked and skill verified for your peace of mind</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💰</div>
+        <h3>Fair Pricing</h3>
+        <p>Transparent pricing with no hidden charges. Compare rates from multiple workers</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Quick Booking</h3>
+        <p>Book workers instantly or schedule for later. Get confirmations within minutes</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📱</div>
+        <h3>Easy Communication</h3>
+        <p>Direct chat with workers, real-time updates, and progress tracking</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🛡️</div>
+        <h3>Work Guarantee</h3>
+        <p>All work comes with quality guarantee and customer support</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⭐</div>
+        <h3>Rating System</h3>
+        <p>Read reviews and ratings from previous customers to make informed decisions</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Actions -->
+  <div class="quick-actions">
+    <button class="fab" onclick="openModal('emergencyModal')" title="Emergency Service">🚨</button>
+    <button class="fab" onclick="openModal('chatModal')" title="Customer Support">💬</button>
+  </div>
+
+  <!-- Worker Registration Modal -->
+  <div class="modal" id="workerModal">
+    <div class="modal-content">
+      <button class="close" onclick="closeModal('workerModal')">&times;</button>
+      <h2>Register as Worker</h2>
+      <div class="success-message" id="workerSuccess">Registration successful! We'll contact you soon.</div>
+      <form id="workerForm">
+        <div class="form-group">
+          <label for="workerName">Full Name</label>
+          <input type="text" id="workerName" required>
+        </div>
+        <div class="form-group">
+          <label for="workerPhone">Phone Number</label>
+          <input type="tel" id="workerPhone" required>
+        </div>
+        <div class="form-group">
+          <label for="workerSkill">Primary Skill</label>
+          <select id="workerSkill" required>
+            <option value="">Select Skill</option>
+            <option value="painter">Painter</option>
+            <option value="carpenter">Carpenter</option>
+            <option value="electrician">Electrician</option>
+            <option value="plumber">Plumber</option>
+            <option value="construction">Construction Worker</option>
+            <option value="house-help">House Help</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="workerExperience">Years of Experience</label>
+          <input type="number" id="workerExperience" min="0" required>
+        </div>
+        <div class="form-group">
+          <label for="workerCity">City</label>
+          <input type="text" id="workerCity" required>
+        </div>
+        <div class="form-group">
+          <label for="workerRate">Daily Rate (₹)</label>
+          <input type="number" id="workerRate" min="100" required>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Register</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Job Posting Modal -->
+  <div class="modal" id="jobModal">
+    <div class="modal-content">
+      <button class="close" onclick="closeModal('jobModal')">&times;</button>
+      <h2>Post a Job</h2>
+      <div class="success-message" id="jobSuccess">Job posted successfully! Workers will contact you soon.</div>
+      <form id="jobForm">
+        <div class="form-group">
+          <label for="jobTitle">Job Title</label>
+          <input type="text" id="jobTitle" placeholder="e.g., House Painting Required" required>
+        </div>
+        <div class="form-group">
+          <label for="jobCategory">Category</label>
+          <select id="jobCategory" required>
+            <option value="">Select Category</option>
+            <option value="painter">Painting</option>
+            <option value="carpenter">Carpentry</option>
+            <option value="electrician">Electrical</option>
+            <option value="plumber">Plumbing</option>
+            <option value="construction">Construction</option>
+            <option value="house-help">House Help</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="jobDescription">Job Description</label>
+          <textarea id="jobDescription" rows="4" placeholder="Describe the work needed..." required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="jobLocation">Location</label>
+          <input type="text" id="jobLocation" placeholder="City, Area" required>
+        </div>
+        <div class="form-group">
+          <label for="jobBudget">Budget (₹)</label>
+          <input type="number" id="jobBudget" min="100" required>
+        </div>
+        <div class="form-group">
+          <label for="jobUrgency">Urgency</label>
+          <select id="jobUrgency" required>
+            <option value="normal">Normal</option>
+            <option value="urgent">Urgent (Within 24 hours)</option>
+            <option value="emergency">Emergency (Within 6 hours)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="employerName">Your Name</label>
+          <input type="text" id="employerName" required>
+        </div>
+        <div class="form-group">
+          <label for="employerPhone">Your Phone Number</label>
+          <input type="tel" id="employerPhone" required>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Post Job</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Emergency Service Modal -->
+  <div class="modal" id="emergencyModal">
+    <div class="modal-content">
+      <button class="close" onclick="closeModal('emergencyModal')">&times;</button>
+      <h2>🚨 Emergency Service</h2>
+      <div class="success-message" id="emergencySuccess">Emergency request sent! A worker will contact you within 30 minutes.</div>
+      <p><strong>Available 24/7 for urgent repairs and emergencies</strong></p>
+      <form id="emergencyForm">
+        <div class="form-group">
+          <label for="emergencyType">Emergency Type</label>
+          <select id="emergencyType" required>
+            <option value="">Select Emergency</option>
+            <option value="electrical">Electrical Emergency</option>
+            <option value="plumbing">Plumbing Emergency</option>
+            <option value="construction">Structural Emergency</option>
+            <option value="other">Other Emergency</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="emergencyDescription">Description</label>
+          <textarea id="emergencyDescription" rows="3" placeholder="Describe the emergency..." required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="emergencyLocation">Location</label>
+          <input type="text" id="emergencyLocation" placeholder="Exact address" required>
+        </div>
+        <div class="form-group">
+          <label for="emergencyPhone">Phone Number</label>
+          <input type="tel" id="emergencyPhone" required>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%; background: #dc2626;">Request Emergency Service</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Chat Modal -->
+  <div class="modal" id="chatModal">
+    <div class="modal-content">
+      <button class="close" onclick="closeModal('chatModal')">&times;</button>
+      <h2>💬 Customer Support</h2>
+      <div id="chatMessages" style="height: 300px; overflow-y: auto; border: 1px solid var(--border); padding: 1rem; margin-bottom: 1rem; border-radius: var(--radius);">
+        <div style="background: var(--bg); padding: 0.5rem; border-radius: var(--radius); margin-bottom: 0.5rem;">
+          <strong>Support:</strong> Hello! How can I help you today?
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="text" id="chatInput" placeholder="Type your message..." style="margin-bottom: 0;">
+      </div>
+      <button onclick="sendMessage()" class="btn btn-primary" style="width: 100%;">Send Message</button>
+    </div>
+  </div>
+
+  <script>
+    // Mobile menu toggle
+    document.getElementById('mobileMenu').addEventListener('click', function() {
+      const navLinks = document.getElementById('navLinks');
+      navLinks.classList.toggle('active');
+    });
+
+    // Modal functions
+    function openModal(modalId) {
+      document.getElementById(modalId).style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+
+    // Close modal when clicking outside
+    window.addEventListener('click', function(event) {
+      if (event.target.classList.contains('modal')) {
+        event.target.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+    });
+
+    // Search functionality
+    function performSearch() {
+      const searchBtn = document.getElementById('searchText');
+      const loading = document.getElementById('searchLoading');
+      
+      searchBtn.style.display = 'none';
+      loading.style.display = 'inline-block';
+      
+      setTimeout(() => {
+        searchBtn.style.display = 'inline';
+        loading.style.display = 'none';
+        alert('Search results will be displayed here in a real implementation!');
+      }, 2000);
+    }
+
+    // Category filter
+    function filterByCategory(category) {
+      document.getElementById('categoryFilter').value = category;
+      performSearch();
+    }
+
+    // Form submissions
+    document.getElementById('workerForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      document.getElementById('workerSuccess').classList.add('show');
+      this.reset();
+      setTimeout(() => {
+        document.getElementById('workerSuccess').classList.remove('show');
+        closeModal('workerModal');
+      }, 3000);
+    });
+
+    document.getElementById('jobForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      document.getElementById('jobSuccess').classList.add('show');
+      this.reset();
+      setTimeout(() => {
+        document.getElementById('jobSuccess').classList.remove('show');
+        closeModal('jobModal');
+      }, 3000);
+    });
+
+    document.getElementById('emergencyForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      document.getElementById('emergencySuccess').classList.add('show');
+      this.reset();
+      setTimeout(() => {
+        document.getElementById('emergencySuccess').classList.remove('show');
+        closeModal('emergencyModal');
+      }, 3000);
+    });
+
+    // Chat functionality
+    function sendMessage() {
+      const chatInput = document.getElementById('chatInput');
+      const chatMessages = document.getElementById('chatMessages');
+      const message = chatInput.value.trim();
+      
+      if (message) {
+        const userMessage = document.createElement('div');
+        userMessage.style.cssText = 'text-align: right; background: var(--secondary); color: white; padding: 0.5rem; border-radius: var(--radius); margin-bottom: 0.5rem;';
+        userMessage.innerHTML = `<strong>You:</strong> ${message}`;
+        chatMessages.appendChild(userMessage);
+        
+        chatInput.value = '';
+        
+        // Auto-reply
+        setTimeout(() => {
+          const supportMessage = document.createElement('div');
+          supportMessage.style.cssText = 'background: var(--bg); padding: 0.5rem; border-radius: var(--radius); margin-bottom: 0.5rem;';
+          supportMessage.innerHTML = `<strong>Support:</strong> Thank you for your message. Our team will get back to you shortly!`;
+          chatMessages.appendChild(supportMessage);
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+        }, 1000);
+        
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+    }
+
+    // Enter key for chat
+    document.getElementById('chatInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        sendMessage();
+      }
+    });
+
+    // Counter animation for stats
+    function animateCounter(element) {
+      const target = parseInt(element.getAttribute('data-target'));
+      const current = parseInt(element.textContent);
+      const increment = target / 200;
+      
+      if (current < target) {
+        element.textContent = Math.ceil(current + increment);
+        setTimeout(() => animateCounter(element), 10);
+      } else {
+        element.textContent = target + (target === 95 ? '%' : '');
+      }
+    }
+
+    // Intersection Observer for animations
+    const observerOptions = {
+      threshold: 0.5,
+      rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          if (entry.target.classList.contains('stat-number')) {
+            animateCounter(entry.target);
+          }
+          entry.target.style.animation = 'fadeInUp 1s ease forwards';
+        }
+      });
+    }, observerOptions);
+
+    // Observe stat numbers
+    document.querySelectorAll('.stat-number').forEach(stat => {
+      observer.observe(stat);
+    });
+
+    // Observe feature cards
+    document.querySelectorAll('.feature-card').forEach(card => {
+      observer.observe(card);
+    });
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Active nav link on scroll
+    window.addEventListener('scroll', function() {
+      const sections = document.querySelectorAll('section[id]');
+      const navLinks = document.querySelectorAll('.nav-links a');
+      
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (window.pageYOffset >= (sectionTop - 200)) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) {
+          link.classList.add('active');
+        }
+      });
+    });
+
+    // Add some sample data for demonstration
+    const sampleWorkers = [
+      { name: 'Rajesh Kumar', skill: 'Painter', experience: 8, rating: 4.8, rate: 800, location: 'Kanpur' },
+      { name: 'Suresh Singh', skill: 'Electrician', experience: 12, rating: 4.9, rate: 1200, location: 'Lucknow' },
+      { name: 'Amit Sharma', skill: 'Carpenter', experience: 6, rating: 4.7, rate: 1000, location: 'Delhi' },
+      { name: 'Ravi Gupta', skill: 'Plumber', experience: 10, rating: 4.6, rate: 900, location: 'Kanpur' }
+    ];
+
+    const sampleJobs = [
+      { title: 'House Painting Required', category: 'painter', budget: 15000, location: 'Gomti Nagar, Lucknow', urgent: true },
+      { title: 'Electrical Wiring for New House', category: 'electrician', budget: 25000, location: 'Civil Lines, Kanpur', urgent: false },
+      { title: 'Kitchen Cabinets Installation', category: 'carpenter', budget: 18000, location: 'Hazratganj, Lucknow', urgent: false },
+      { title: 'Bathroom Plumbing Repair', category: 'plumber', budget: 5000, location: 'Indira Nagar, Kanpur', urgent: true }
+    ];
+
+    // Add notification system
+    function showNotification(message, type = 'success') {
+      const notification = document.createElement('div');
+      notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${type === 'success' ? 'var(--accent)' : '#dc2626'};
+        color: white;
+        padding: 1rem;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        z-index: 3000;
+        animation: slideIn 0.3s ease;
+      `;
+      notification.textContent = message;
+      document.body.appendChild(notification);
+
+      setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => {
+          document.body.removeChild(notification);
+        }, 300);
+      }, 3000);
+    }
+
+    // Add CSS for notification animations
+    const notificationStyles = document.createElement('style');
+    notificationStyles.textContent = `
+      @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+      }
+      @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+      }
+    `;
+    document.head.appendChild(notificationStyles);
+
+    // Welcome notification
+    setTimeout(() => {
+      showNotification('Welcome to MazdoorMitra! Find skilled workers easily.');
+    }, 2000);
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+      // Escape to close modals
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal').forEach(modal => {
+          modal.style.display = 'none';
+        });
+        document.body.style.overflow = 'auto';
+      }
+      
+      // Ctrl/Cmd + K for search
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        document.getElementById('searchInput').focus();
+      }
+    });
+
+    // Add search suggestions
+    const searchSuggestions = [
+      'Painter in Kanpur', 'Electrician near me', 'Carpenter for furniture',
+      'Plumber emergency', 'House cleaning service', 'Construction worker',
+      'Bathroom renovation', 'Kitchen remodeling', 'Electrical repair'
+    ];
+
+    document.getElementById('searchInput').addEventListener('input', function(e) {
+      const value = e.target.value.toLowerCase();
+      if (value.length > 2) {
+        const suggestions = searchSuggestions.filter(s => 
+          s.toLowerCase().includes(value)
+        );
+        
+        // In a real app, you would show these suggestions in a dropdown
+        console.log('Suggestions:', suggestions);
+      }
+    });
+
+    // Add geolocation for location-based search
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          const lat = position.coords.latitude;
+          const lng = position.coords.longitude;
+          
+          // In a real app, you would use reverse geocoding to get the city name
+          console.log('User location:', lat, lng);
+          showNotification('Location detected! Showing nearby workers.');
+        });
+      }
+    }
+
+    // Auto-save form data
+    function saveFormData(formId) {
+      const form = document.getElementById(formId);
+      const formData = new FormData(form);
+      const data = {};
+      for (let [key, value] of formData.entries()) {
+        data[key] = value;
+      }
+      sessionStorage.setItem(formId + '_data', JSON.stringify(data));
+    }
+
+    function loadFormData(formId) {
+      const savedData = sessionStorage.getItem(formId + '_data');
+      if (savedData) {
+        const data = JSON.parse(savedData);
+        const form = document.getElementById(formId);
+        Object.keys(data).forEach(key => {
+          const field = form.querySelector(`[name="${key}"], #${key}`);
+          if (field) {
+            field.value = data[key];
+          }
+        });
+      }
+    }
+
+    // Load saved form data on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      loadFormData('workerForm');
+      loadFormData('jobForm');
+    });
+
+    // Save form data as user types
+    document.querySelectorAll('input, textarea, select').forEach(field => {
+      field.addEventListener('change', function() {
+        const form = this.closest('form');
+        if (form) {
+          saveFormData(form.id);
+        }
+      });
+    });
+
+    // Add dark mode toggle (bonus feature)
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+    }
+
+    // Load dark mode preference
+    if (localStorage.getItem('darkMode') === 'true') {
+      document.body.classList.add('dark-mode');
+    }
+
+    // Add PWA-like features
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      showNotification('Install MazdoorMitra app for better experience!');
+    });
+
+    console.log('MazdoorMitra Enhanced Portal Loaded Successfully!');
+    console.log('Features: Mobile-responsive, Modal forms, Real-time chat, Search, Statistics, Notifications');
+  </script>
 </body>
-
 </html>
