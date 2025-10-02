@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Jobs - Mazdoor Mitr</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            color: white;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .search-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            flex: 2;
+            padding: 15px 20px;
+            border: 2px solid #e0e6ed;
+            border-radius: 10px;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .location-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid #e0e6ed;
+            border-radius: 10px;
+            font-size: 1.1em;
+        }
+
+        .search-btn {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .quick-filters {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .quick-filter {
+            padding: 8px 16px;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9em;
+        }
+
+        .quick-filter:hover,
+        .quick-filter.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-color: transparent;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+        }
+
+        .filters-sidebar {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            height: fit-content;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 20px;
+        }
+
+        .filters-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f1f3f4;
+        }
+
+        .filters-title {
+            color: #2c3e50;
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+
+        .clear-filters {
+            color: #e74c3c;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9em;
+            text-decoration: underline;
+        }
+
+        .filter-group {
+            margin-bottom: 25px;
+        }
+
+        .filter-group h4 {
+            color: #34495e;
+            font-size: 1.1em;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .filter-option:hover {
+            background: #f8f9fa;
+        }
+
+        .filter-option input[type="checkbox"],
+        .filter-option input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #3498db;
+        }
+
+        .filter-option label {
+            cursor: pointer;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .salary-range-slider {
+            margin: 15px 0;
+        }
+
+        .salary-range-slider input[type="range"] {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .salary-display {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .jobs-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .jobs-header {
+            padding: 25px 30px;
+            border-bottom: 2px solid #f1f3f4;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .results-count {
+            color: #2c3e50;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+
+        .sort-options {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .sort-select {
+            padding: 10px 15px;
+            border: 2px solid #e0e6ed;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+        }
+
+        .view-toggle {
+            display: flex;
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 4px;
+        }
+
+        .view-btn {
+            padding: 8px 12px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .view-btn.active {
+            background: #3498db;
+            color: white;
+        }
+
+        .jobs-list {
+            padding: 0;
+        }
+
+        .job-card {
+            padding: 25px 30px;
+            border-bottom: 1px solid #f1f3f4;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .job-card:hover {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+        }
+
+        .job-card:last-child {
+            border-bottom: none;
+        }
+
+        .job-card.urgent {
+            border-left: 4px solid #e74c3c;
+            background: linear-gradient(90deg, rgba(231, 76, 60, 0.05) 0%, transparent 100%);
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .job-title {
+            color: #2c3e50;
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .urgent-badge {
+            background: #e74c3c;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.7em;
+            font-weight: bold;
+        }
+
+        .company-name {
+            color: #7f8c8d;
+            font-size: 1em;
+            margin-bottom: 8px;
+        }
+
+        .job-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .meta-icon {
+            font-size: 1.1em;
+        }
+
+        .job-description {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .job-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .job-tag {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: 500;
+        }
+
+        .job-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid #f1f3f4;
+        }
+
+        .salary-info {
+            color: #27ae60;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .job-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            font-size: 0.9em;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #3498db;
+            color: #3498db;
+        }
+
+        .btn-outline:hover {
+            background: #3498db;
+            color: white;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            gap: 10px;
+        }
+
+        .pagination button {
+            padding: 10px 15px;
+            border: 2px solid #e0e6ed;
+            background: white;
+            color: #666;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pagination button:hover,
+        .pagination button.active {
+            background: #3498db;
+            color: white;
+            border-color: #3498db;
+        }
+
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .no-jobs {
+            text-align: center;
+            padding: 60px 30px;
+            color: #7f8c8d;
+        }
+
+        .no-jobs h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #34495e;
+        }
+
+        .loading-spinner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 50px;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .job-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .filters-mobile-toggle {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            z-index: 999;
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .filters-sidebar {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 300px;
+                height: 100vh;
+                z-index: 1001;
+                transition: left 0.3s ease;
+                overflow-y: auto;
+            }
+            
+            .filters-sidebar.mobile-open {
+                left: 0;
+            }
+            
+            .filters-mobile-toggle {
+                display: block;
+            }
+            
+            .search-bar {
+                flex-direction: column;
+            }
+            
+            .search-input,
+            .location-input {
+                flex: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .job-card {
+                padding: 20px 15px;
+            }
+            
+            .job-meta {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .job-footer {
+                flex-direction: column;
+                gap: 15px;
+                align-items: stretch;
+            }
+            
+            .job-actions {
+                justify-content: space-between;
+            }
+            
+            .jobs-header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 15px;
+            }
+        }
+
+        .applied-job {
+            opacity: 0.7;
+            position: relative;
+        }
+
+        .applied-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #27ae60;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .saved-job {
+            position: relative;
+        }
+
+        .save-job-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #ccc;
+            transition: color 0.3s ease;
+        }
+
+        .save-job-btn.saved {
+            color: #e74c3c;
+        }
+
+        .job-stats {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+            font-size: 0.85em;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h1>🏗️ मजदूर मित्र</h1>
+            <p>Find the perfect job opportunity near you</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Search Section -->
+        <div class="search-section">
+            <div class="search-bar">
+                <input type="text" class="search-input" id="jobSearch" 
+                       placeholder="Search jobs (e.g., construction worker, delivery boy, cook...)">
+                <input type="text" class="location-input" id="locationSearch" 
+                       placeholder="Location (city, area, pincode)">
+                <button class="search-btn" onclick="searchJobs()">
+                    🔍 Search Jobs
+                </button>
+            </div>
+            
+            <div class="quick-filters">
+                <span class="quick-filter active" data-category="">All Jobs</span>
+                <span class="quick-filter" data-category="construction">🏗️ Construction</span>
+                <span class="quick-filter" data-category="manufacturing">🏭 Manufacturing</span>
+                <span class="quick-filter" data-category="hospitality">🍽️ Hospitality</span>
+                <span class="quick-filter" data-category="domestic">🏠 Domestic</span>
+                <span class="quick-filter" data-category="delivery">🚚 Delivery</span>
+                <span class="quick-filter" data-category="urgent">🚨 Urgent</span>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <!-- Filters Sidebar -->
+            <aside class="filters-sidebar" id="filtersSidebar">
+                <div class="filters-header">
+                    <h3 class="filters-title">🔧 Filters</h3>
+                    <button class="clear-filters" onclick="clearAllFilters()">Clear All</button>
+                </div>
+
+                <!-- Job Category Filter -->
+                <div class="filter-group">
+                    <h4>📂 Job Category</h4>
+                    <div class="filter-options">
+                        <div class="filter-option">
+                            <input type="checkbox" id="cat-construction" value="construction">
+                            <label for="cat-construction">Construction & Building</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="cat-manufacturing" value="manufacturing">
+                            <label for="cat-manufacturing">Manufacturing</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="cat-hospitality" value="hospitality">
+                            <label for="cat-hospitality">Hospitality & Food</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="cat-domestic" value="domestic">
+                            <label for="cat-domestic">Domestic Work</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="cat-delivery" value="delivery">
+                            <label for="cat-delivery">Delivery & Transport</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="cat-agriculture" value="agriculture">
+                            <label for="cat-agriculture">Agriculture</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="cat-security" value="security">
+                            <label for="cat-security">Security</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Salary Range Filter -->
+                <div class="filter-group">
+                    <h4>💰 Salary Range (Daily)</h4>
+                    <div class="salary-range-slider">
+                        <div class="salary-display">
+                            <span>₹<span id="minSalaryDisplay">200</span></span>
+                            <span>₹<span id="maxSalaryDisplay">2000</span></span>
+                        </div>
+                        <input type="range" id="minSalary" min="200" max="2000" value="200" step="50">
+                        <input type="range" id="maxSalary" min="200" max="2000" value="2000" step="50">
+                    </div>
+                </div>
+
+                <!-- Work Type Filter -->
+                <div class="filter-group">
+                    <h4>⏰ Work Type</h4>
+                    <div class="filter-options">
+                        <div class="filter-option">
+                            <input type="checkbox" id="type-fulltime" value="full-time">
+                            <label for="type-fulltime">Full Time</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="type-parttime" value="part-time">
+                            <label for="type-parttime">Part Time</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="type-contract" value="contract">
+                            <label for="type-contract">Contract</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="type-temporary" value="temporary">
+                            <label for="type-temporary">Temporary</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="type-daily" value="daily-wage">
+                            <label for="type-daily">Daily Wage</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience Filter -->
+                <div class="filter-group">
+                    <h4>📈 Experience Required</h4>
+                    <div class="filter-options">
+                        <div class="filter-option">
+                            <input type="radio" name="experience" id="exp-any" value="" checked>
+                            <label for="exp-any">Any Experience</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="radio" name="experience" id="exp-fresher" value="0">
+                            <label for="exp-fresher">Fresher</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="radio" name="experience" id="exp-1year" value="1">
+                            <label for="exp-1year">1+ Years</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="radio" name="experience" id="exp-3years" value="3">
+                            <label for="exp-3years">3+ Years</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="radio" name="experience" id="exp-5years" value="5">
+                            <label for="exp-5years">5+ Years</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Posted Date Filter -->
+                <div class="filter-group">
+                    <h4>📅 Posted Date</h4>
+                    <div class="filter-options">
+                        <div class="filter-option">
+                            <input type="radio" name="postedDate" id="date-any" value="" checked>
+                            <label for="date-any">Any Time</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="radio" name="postedDate" id="date-today" value="today">
+                            <label for="date-today">Today</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="radio" name="postedDate" id="date-week" value="week">
+                            <label for="date-week">This Week</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="radio" name="postedDate" id="date-month" value="month">
+                            <label for="date-month">This Month</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Benefits Filter -->
+                <div class="filter-group">
+                    <h4>🎁 Benefits</h4>
+                    <div class="filter-options">
+                        <div class="filter-option">
+                            <input type="checkbox" id="benefit-food" value="food">
+                            <label for="benefit-food">Food Provided</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="benefit-accommodation" value="accommodation">
+                            <label for="benefit-accommodation">Accommodation</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="benefit-transport" value="transport">
+                            <label for="benefit-transport">Transportation</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="benefit-medical" value="medical">
+                            <label for="benefit-medical">Medical Facility</label>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Jobs Container -->
+            <main class="jobs-container">
+                <div class="jobs-header">
+                    <div class="results-count">
+                        <span id="jobCount">1,247</span> Jobs Found
+                    </div>
+                    <div class="sort-options">
+                        <label for="sortBy">Sort by:</label>
+                        <select id="sortBy" class="sort-select" onchange="sortJobs()">
+                            <option value="relevance">Relevance</option>
+                            <option value="date">Latest First</option>
+                            <option value="salary-high">Salary: High to Low</option>
+                            <option value="salary-low">Salary: Low to High</option>
+                            <option value="distance">Distance</option>
+                        </select>
+                        
+                        <div class="view-toggle">
+                            <button class="view-btn active" data-view="list">📋</button>
+                            <button class="view-btn" data-view="grid">⊞</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="jobs-list" id="jobsList">
+                    <!-- Loading Spinner -->
+                    <div class="loading-spinner" id="loadingSpinner">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination" id="pagination">
+                    <button onclick="changePage(-1)" id="prevPage">← Previous</button>
+                    <button class="active">1</button>
+                    <button>2</button>
+                    <button>3</button>
+                    <button>4</button>
+                    <button>5</button>
+                    <button onclick="changePage(1)" id="nextPage">Next →</button>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Mobile Filters Toggle -->
+    <button class="filters-mobile-toggle" onclick="toggleMobileFilters()">
+        🔧
+    </button>
+
+    <!-- Job Detail Modal -->
+    <div class="job-modal" id="jobModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeJobModal()">&times;</button>
+            <div id="modalJobContent">
+                <!-- Job details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample job data
+        const sampleJobs = [
+            {
+                id: 1,
+                title: "Construction Worker",
+                company: "ABC Construction Ltd.",
+                location: "Andheri, Mumbai",
+                category: "construction",
+                workType: "full-time",
+                salary: { min: 800, max: 1200, type: "daily" },
+                experience: 2,
+                description: "Looking for experienced construction workers for ongoing residential project. Must have experience in concrete work and basic carpentry.",
+                skills: ["Concrete Work", "Carpentry", "Safety Knowledge"],
+                benefits: ["food", "transport"],
+                isUrgent: true,
+                postedDate: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000), // 2 days ago
+                applicants: 45,
+                views: 156,
+                applied: false,
+                saved: false
+            },
+            {
+                id: 2,
+                title: "Delivery Boy",
+                company: "Quick Delivery Services",
+                location: "Whitefield, Bangalore",
+                category: "delivery",
+                workType: "part-time",
+                salary: { min: "200",
+            }
+        }]
+        </script>
+        </body>
+        </html>
