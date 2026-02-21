@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About - Devesh Yadav</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color:white;
+        }
+
+        /* Navbar */
+        .navbar{
+            background: rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+            padding:15px 40px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+
+        .navbar a{
+            color:white;
+            text-decoration:none;
+            margin-left:20px;
+            font-weight:500;
+            transition:0.3s;
+        }
+
+        .navbar a:hover{
+            color:#00ffcc;
+        }
+
+        /* Main Container */
+        .container{
+            max-width:1000px;
+            margin:60px auto;
+            padding:20px;
+        }
+
+        .card{
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(15px);
+            padding:40px;
+            border-radius:15px;
+            box-shadow:0 8px 30px rgba(0,0,0,0.3);
+        }
+
+        h1{
+            font-size:40px;
+            margin-bottom:10px;
+        }
+
+        h2{
+            margin-top:30px;
+            margin-bottom:15px;
+            color:#00ffcc;
+        }
+
+        p{
+            line-height:1.7;
+            margin-bottom:15px;
+            font-size:17px;
+        }
+
+        .skills{
+            margin-top:20px;
+            display:flex;
+            flex-wrap:wrap;
+            gap:10px;
+        }
+
+        .skill-tag{
+            background:#00ffcc;
+            color:black;
+            padding:8px 14px;
+            border-radius:20px;
+            font-weight:600;
+            font-size:14px;
+        }
+
+        .connect{
+            margin-top:30px;
+            padding:20px;
+            background:rgba(0,0,0,0.3);
+            border-radius:10px;
+        }
+
+        footer{
+            text-align:center;
+            padding:20px;
+            margin-top:60px;
+            background:rgba(0,0,0,0.3);
+        }
+
+        @media(max-width:768px){
+            h1{
+                font-size:30px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div><strong>MazdoorMitra</strong></div>
+        <div>
+            <a href="index.html">Home</a>
+            <a href="workers.html">Workers</a>
+            <a href="Joblisting.html">Jobs</a>
+            <a href="about.html">About</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="card">
+
+            <h1>Hi, I’m Devesh Yadav 👋</h1>
+            <p><strong>B.Tech (Computer Science) Student</strong> passionate about Data Science, Machine Learning, and Data Analytics.</p>
+
+            <p>
+                I love turning raw data into meaningful insights using tools like 
+                <strong>Python, Pandas, NumPy, Scikit-learn, SQL, and Power BI.</strong>
+            </p>
+
+            <p>
+                Currently, I’m working on personal projects such as predictive modeling 
+                and data visualization dashboards to strengthen my practical skills.
+            </p>
+
+            <p>
+                I’m actively looking for Data Science or Machine Learning internship 
+                opportunities where I can apply my skills, learn from industry professionals, 
+                and contribute to real-world projects.
+            </p>
+
+            <h2>⚙️ Skills</h2>
+            <div class="skills">
+                <span class="skill-tag">Python</span>
+                <span class="skill-tag">Machine Learning</span>
+                <span class="skill-tag">Data Visualization</span>
+                <span class="skill-tag">Statistics</span>
+                <span class="skill-tag">SQL</span>
+                <span class="skill-tag">Power BI</span>
+                <span class="skill-tag">Excel</span>
+            </div>
+
+            <div class="connect">
+                <h2>📫 Let’s Connect</h2>
+                <p>
+                    Always open to learning, collaboration, and new opportunities 
+                    in the field of Data Science.
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        © 2026 Devesh Yadav | Data Science Enthusiast
+    </footer>
+</body>
+</html>
